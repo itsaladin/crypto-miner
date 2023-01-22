@@ -5,10 +5,12 @@ import { Card, Row, Col, Input } from "antd";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
-const Cryptocurrencies = () => {
-    const { data: cryptosList, isFatchiing } = useGetCryptosQuery();
+const Cryptocurrencies = (simplified) => {
+    const count = simplified ? 10 : 100;
+    const { data: cryptosList, isFatchiing } = useGetCryptosQuery(count);
     const [cryptos, setCryptos] = useState(cryptosList?.data?.coins);
-    console.log(cryptos);
+
+    if (isFatchiing) return "Loading ...";
     return (
         <>
             <Row gutter={[32, 32]} className="crypto-card-container">
@@ -28,8 +30,6 @@ const Cryptocurrencies = () => {
                                         className="crypto-image"
                                         src={currency.iconUrl}
                                         alt="Image not found"
-                                        hoverable
-                                        style={{ width: 35 }}
                                     />
                                 }
                             >

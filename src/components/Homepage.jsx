@@ -8,7 +8,7 @@ import { News, Cryptocurrencies } from "./index";
 const { Title } = Typography;
 
 const Homepage = () => {
-    const { data, isFetching } = useGetCryptosQuery();
+    const { data, isFetching } = useGetCryptosQuery(10);
     const globalStats = data?.data?.stats;
     if (isFetching) return "Loading data ...";
 
@@ -49,7 +49,7 @@ const Homepage = () => {
                     <Link to="/cryptocurrencies">Show More</Link>
                 </Title>
             </div>
-            <Cryptocurrencies simplified />
+            <Cryptocurrencies />
             <div className="home-leading-container">
                 <Title level={2} className="home-title">
                     Latest Crypto News
@@ -58,7 +58,7 @@ const Homepage = () => {
                     <Link to="/news">Show More</Link>
                 </Title>
             </div>
-            <News simplified />
+            <News />
         </>
     );
 };
