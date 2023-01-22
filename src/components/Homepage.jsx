@@ -3,16 +3,14 @@ import { Typography, Row, Col, Statistic } from "antd";
 import { millify } from "millify";
 import { Link } from "react-router-dom";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import { News, Cryptocurrencies } from "./index";
 
 const { Title } = Typography;
 
 const Homepage = () => {
     const { data, isFetching } = useGetCryptosQuery();
-
-    if (isFetching) return "Loading data ...";
     const globalStats = data?.data?.stats;
-
-    console.log(data);
+    if (isFetching) return "Loading data ...";
 
     return (
         <>
@@ -23,26 +21,44 @@ const Homepage = () => {
                 <Col span={12}>
                     <Statistic
                         title="Total Cryptocurrencies"
-                        value={globalStats.total}
+                        value={millify(globalStats.total)}
                     />
                     <Statistic
                         title="Total Exchanges"
-                        value={globalStats.totalExchanges}
+                        value={millify(globalStats.totalExchanges)}
                     />
                     <Statistic
                         title="Total Market Cap"
-                        value={globalStats.totalMarketCap}
+                        value={millify(globalStats.totalMarketCap)}
                     />
                     <Statistic
                         title="Total 24H Volume"
-                        value={globalStats.total24hVolume}
+                        value={millify(globalStats.total24hVolume)}
                     />
                     <Statistic
                         title="Total Markets"
-                        value={globalStats.totalMarkets}
+                        value={millify(globalStats.totalMarkets)}
                     />
                 </Col>
             </Row>
+            <div className="home-leading-container">
+                <Title level={2} className="home-title">
+                    Top 20 Cryptocurrencies in the world
+                </Title>
+                <Title level={3} className="show-more">
+                    <Link to="/cryptocurrencies">Show More</Link>
+                </Title>
+            </div>
+            <Cryptocurrencies simplified />
+            <div className="home-leading-container">
+                <Title level={2} className="home-title">
+                    Latest Crypto News
+                </Title>
+                <Title level={3} className="show-more">
+                    <Link to="/news">Show More</Link>
+                </Title>
+            </div>
+            <News simplified />
         </>
     );
 };
