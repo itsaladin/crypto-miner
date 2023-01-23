@@ -15,10 +15,12 @@ const Navbar = () => {
     return (
         <div className="nav-container">
             <div className="logo-container">
-                <Avatar size={"large"} src={icon} />
-                <Typography.Title level={2} className="logo">
-                    <Link to="/">Crypto Miner</Link>
-                </Typography.Title>
+                <div className="logo-title">
+                    <Avatar size={"large"} src={icon} />
+                    <Typography.Title level={2} className="logo">
+                        <Link to="/">Crypto Miner</Link>
+                    </Typography.Title>
+                </div>
                 <Menu theme="dark">
                     <Menu.Item icon={<HomeOutlined />}>
                         <Link to="/">Home</Link>

@@ -15,7 +15,7 @@ import "./App.css";
 const App = () => {
     return (
         <div className="app">
-            <div className="nav-bar">
+            <div className="navbar">
                 <Navbar />
             </div>
             <div className="main">
@@ -37,7 +37,10 @@ const App = () => {
                     </div>
                 </Layout>
                 <div className="footer">
-                    <Typography.Title level={5} style={{ textAlign: "center" }}>
+                    <Typography.Title
+                        level={5}
+                        style={{ color: "white", textAlign: "center" }}
+                    >
                         Copyright © 2021
                         <Link to="/">Cryptoverse Inc.</Link> <br />
                         All Rights Reserved.
