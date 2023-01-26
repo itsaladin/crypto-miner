@@ -40,14 +40,14 @@ const Cryptocurrencies = (simplified) => {
                         className="crypto-card"
                         key={currency?.id}
                     >
-                        <Link to={`/crypto/${currency?.id}`}>
+                        <Link to={`/crypto/${currency?.rank}`}>
                             <Card
                                 title={`${currency.rank}.${currency.name}`}
                                 extra={
                                     <img
                                         className="crypto-image"
                                         src={currency.iconUrl}
-                                        alt="Image not found"
+                                        alt=""
                                     />
                                 }
                             >
