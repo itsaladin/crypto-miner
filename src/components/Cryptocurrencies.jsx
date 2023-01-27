@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { millify } from "millify";
+import React, { useEffect, useState } from "react";
+import millify from "millify";
 import { Link } from "react-router-dom";
 import { Card, Row, Col, Input } from "antd";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
-const Cryptocurrencies = (simplified) => {
+const Cryptocurrencies = ({ simplified }) => {
     const count = simplified ? 10 : 100;
-    const { data: cryptosList, isFatchiing } = useGetCryptosQuery(count);
-    const [cryptos, setCryptos] = useState(cryptosList?.data?.coins);
-    const [searchItem, setSearchItem] = useState("");
+    const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
+    const [cryptos, setCryptos] = useState();
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         const filteredData = cryptosList?.data?.coins.filter((coin) =>
-            coin.name.toLowerCase().includes(searchItem.toLocaleLowerCase())
+            coin.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
         );
         setCryptos(filteredData);
-    }, [cryptosList, searchItem]);
+    }, [cryptosList, searchTerm]);
 
-    if (isFatchiing) return "Loading ...";
+    if (isFetching) return "Loading ...";
 
     return (
         <>
@@ -26,11 +26,12 @@ const Cryptocurrencies = (simplified) => {
                 <div className="search-crypto">
                     <Input
                         placeholder="Search Cryptocurrency"
-                        onChange={(e) => setSearchItem(e.target.value)}
+                        onChange={(e) =>
+                            setSearchTerm(e.target.value.toLowerCase())
+                        }
                     />
                 </div>
             )}
-
             <Row gutter={[32, 32]} className="crypto-card-container">
                 {cryptos?.map((currency) => (
                     <Col
@@ -38,26 +39,27 @@ const Cryptocurrencies = (simplified) => {
                         sm={12}
                         lg={6}
                         className="crypto-card"
-                        key={currency?.id}
+                        key={currency.uuid}
                     >
-                        <Link to={`/crypto/${currency?.rank}`}>
+                        {/* Note: Change currency.id to currency.uuid  */}
+                        <Link
+                            key={currency.uuid}
+                            to={`/crypto/${currency.uuid}`}
+                        >
                             <Card
-                                title={`${currency.rank}.${currency.name}`}
+                                title={`${currency.rank}. ${currency.name}`}
                                 extra={
+                                    // eslint-disable-next-line jsx-a11y/alt-text
                                     <img
                                         className="crypto-image"
                                         src={currency.iconUrl}
-                                        alt=""
                                     />
                                 }
+                                hoverable
                             >
-                                <p>Price: {millify(currency?.price)}</p>
-                                <p>
-                                    Market Cap: {millify(currency?.marketCap)}
-                                </p>
-                                <p>
-                                    Daily Change: {millify(currency?.change)}%
-                                </p>
+                                <p>Price: {millify(currency.price)}</p>
+                                <p>Market Cap: {millify(currency.marketCap)}</p>
+                                <p>Daily Change: {currency.change}%</p>
                             </Card>
                         </Link>
                     </Col>
