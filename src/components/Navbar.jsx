@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Button, Menu, Typography, Avatar } from "antd";
-import { Link } from "react-router-dom";
 import {
-    HomeOutlined,
-    MoneyCollectOutlined,
-    BulbFilled,
-    FundOutlined,
-    MenuOutlined,
     BulbOutlined,
+    FundOutlined,
+    HomeOutlined,
+    MenuOutlined,
+    MoneyCollectOutlined,
 } from "@ant-design/icons";
+import { Avatar, Button, Menu, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import icon from "../images/crypto.png";
 
 const Navbar = () => {

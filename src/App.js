@@ -1,12 +1,12 @@
+import { Layout, Space, Typography } from "antd";
 import React from "react";
-import { Route, Link, Routes, BrowserRouter } from "react-router-dom";
-import { Layout, Typography, Space } from "antd";
+import { Link, Route, Routes } from "react-router-dom";
 import {
-    Navbar,
-    Homepage,
-    Exchanges,
     Cryptocurrencies,
     CryptoDetails,
+    Exchanges,
+    Homepage,
+    Navbar,
     News,
 } from "./components";
 
