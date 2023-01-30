@@ -22,9 +22,9 @@ const News = ({ simplified }) => {
     if (!cryptoNews?.value) return <Loader />;
 
     return (
-        <Row gutter={[24, 24]}>
+        <>
             {!simplified && (
-                <Col span={24}>
+                <Col span={24} className="search-crypto">
                     <Select
                         showSearch
                         className="select-news"
@@ -46,55 +46,60 @@ const News = ({ simplified }) => {
                     </Select>
                 </Col>
             )}
-            {cryptoNews?.value?.map((news, index) => (
-                <Col xs={24} sm={12} lg={8} key={index}>
-                    <Card hoverable className="news-card">
-                        <a href={news.url} target="_blank" rel="noreferrer">
-                            <div className="news-image-container">
-                                <Title level={4} className="news-title">
-                                    {news.name}
-                                </Title>
-                                <img
-                                    style={{
-                                        maxWidth: "200px",
-                                        maxHeight: "100px",
-                                    }}
-                                    src={
-                                        news?.image?.thumbnail?.contentUrl ||
-                                        demoImg
-                                    }
-                                    alt=""
-                                />
-                            </div>
-                            <p>
-                                {news.description > 100
-                                    ? `${news.description.substring(0, 100)}...`
-                                    : news.description}
-                            </p>
-                            <div className="provider-container">
-                                <div>
-                                    <Avatar
+            <Row gutter={[24, 24]}>
+                {cryptoNews?.value?.map((news, index) => (
+                    <Col xs={24} sm={12} lg={8} key={index}>
+                        <Card hoverable className="news-card">
+                            <a href={news.url} target="_blank" rel="noreferrer">
+                                <div className="news-image-container">
+                                    <Title level={4} className="news-title">
+                                        {news.name}
+                                    </Title>
+                                    <img
+                                        style={{
+                                            maxWidth: "200px",
+                                            maxHeight: "100px",
+                                        }}
                                         src={
-                                            news?.provider[0]?.image?.thumbnail
-                                                ?.contentUrl
+                                            news?.image?.thumbnail
+                                                ?.contentUrl || demoImg
                                         }
-                                        alt="news"
+                                        alt=""
                                     />
-                                    <Text className="provider-name">
-                                        {news?.provider[0]?.name}
+                                </div>
+                                <p>
+                                    {news.description > 100
+                                        ? `${news.description.substring(
+                                              0,
+                                              100
+                                          )}...`
+                                        : news.description}
+                                </p>
+                                <div className="provider-container">
+                                    <div>
+                                        <Avatar
+                                            src={
+                                                news?.provider[0]?.image
+                                                    ?.thumbnail?.contentUrl
+                                            }
+                                            alt="news"
+                                        />
+                                        <Text className="provider-name">
+                                            {news?.provider[0]?.name}
+                                        </Text>
+                                    </div>
+                                    <Text>
+                                        {moment(news.datePublished)
+                                            .startOf("ss")
+                                            .fromNow()}
                                     </Text>
                                 </div>
-                                <Text>
-                                    {moment(news.datePublished)
-                                        .startOf("ss")
-                                        .fromNow()}
-                                </Text>
-                            </div>
-                        </a>
-                    </Card>
-                </Col>
-            ))}
-        </Row>
+                            </a>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </>
     );
 };
 
